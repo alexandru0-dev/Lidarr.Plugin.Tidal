@@ -52,31 +52,32 @@ jobs:
       - name: Build
         run: dotnet publish src/*.sln -c Release -f ${{ matrix.framework }}
       - name: Upload net core
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.framework }}
-          path: ./${{ env.PLUGIN_NAME }}.${{ matrix.framework }}.zip
+          name: ${{ env.PLUGIN_NAME }}-${{ env.PLUGIN_VERSION }}
+          path: ${{ env.PLUGIN_NAME }}.net6.0.zip
   publish:
     needs: build
     if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact (net6.0)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
-          name: net6.0
+          path: artifact
+          name: ${{ env.PLUGIN_NAME }}-${{ env.PLUGIN_VERSION }}
       - uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: v${{ env.PLUGIN_VERSION }}
           commitish: ${{ env.GITHUB_SHA }}
-          name: Deemix Plugin
+          name: Tidal Plugin
           body: >
-            Lidarr plugin to add Deemix support
+            Lidarr plugin to add Tidal support
 
             Minimum Lidarr Version: ${{ env.MINIMUM_LIDARR_VERSION }}
           draft: true
           prerelease: true
           files: >
-            ${{ env.PLUGIN_NAME }}.net6.0.zip
+            artifact/${{ env.PLUGIN_NAME }}.net6.0.zip
           gzip: false
