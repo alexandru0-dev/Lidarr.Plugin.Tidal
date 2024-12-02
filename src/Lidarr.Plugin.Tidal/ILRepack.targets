@@ -4,9 +4,9 @@
     <Target Name="ILRepacker" AfterTargets="Build">
         <ItemGroup>
 			<InputAssemblies Include="$(OutputPath)\Lidarr.Plugin.Tidal.dll" />
-			<InputAssemblies Include="$(OutputPath)\TidalSharp.dll" />
 			<InputAssemblies Include="$(OutputPath)\Newtonsoft.Json.dll" />
 			<InputAssemblies Include="$(OutputPath)\TagLibSharp.dll" />
+            <InputAssemblies Include="..\..\_temp\bin\Release\TidalSharp\net6.0\TidalSharp.dll" />
 		</ItemGroup>
 
         <ILRepack
@@ -14,7 +14,7 @@
             Internalize="true"
             InputAssemblies="@(InputAssemblies)"
             TargetKind="Dll"
-            LibraryPath="..\..\..\Lidarr\_artifacts\win-x64\net6.0\old\Lidarr\"
+            LibraryPath="..\Lidarr\_output\net6.0"
             OutputFile="$(OutputPath)\$(AssemblyName).dll"
         />
     </Target>
