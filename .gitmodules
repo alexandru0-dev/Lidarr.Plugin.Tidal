@@ -1,0 +1,8 @@
+[submodule "Lidarr"]
+	path = src/Lidarr
+	url = git@github.com:lidarr/Lidarr.git
+	branch = plugins
+[submodule "TidalSharp"]
+	path = src/TidalSharp
+	url = git@github.com:TrevTV/TidalSharp.git
+	branch = main
