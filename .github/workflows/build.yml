@@ -67,18 +67,17 @@ jobs:
         with:
           name: ${{ env.PLUGIN_NAME }}.net6.0
           path: ${{ env.PLUGIN_NAME }}.net6.0
-      - uses: meeDamian/github-release@2.0
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          tag: v${{ env.PLUGIN_VERSION }}
-          commitish: ${{ env.GITHUB_SHA }}
-          name: Tidal Plugin
-          body: >
+          name: Tidal Plugin for Lidarr
+          target_commitish: ${{ env.GITHUB_SHA }}
+          tag_name: v${{ env.PLUGIN_VERSION }}
+          files: |
+            ./${{ env.PLUGIN_NAME }}.net6.0/*
+          body: |
             Lidarr plugin to add Tidal support
 
             Minimum Lidarr Version: ${{ env.MINIMUM_LIDARR_VERSION }}
           draft: true
           prerelease: true
-          files: >
-            ${{ env.PLUGIN_NAME }}.net6.0/
-          gzip: folders
