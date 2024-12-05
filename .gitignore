@@ -117,6 +117,7 @@ src/UI/.idea/*
 node_modules/
 _output*
 _plugins*
+_plugins*
 _artifacts
 _rawPackage/
 _dotTrace*
@@ -132,6 +133,7 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
+_plugins*
 
 #VS outout folders
 bin
@@ -144,8 +146,11 @@ output/*
 .DS_Store
 
 _start
-_temp_*/**/*
+_temp
 
 ## Merge any idea folder
 */**/.idea
 *.iml
+
+# Direnv
+.direnv
