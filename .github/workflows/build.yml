@@ -67,6 +67,10 @@ jobs:
         with:
           name: ${{ env.PLUGIN_NAME }}.net6.0
           path: ${{ env.PLUGIN_NAME }}.net6.0
+      - name: Zip Artifact
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -j ${{ env.PLUGIN_NAME }}.net6.0.zip *
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
@@ -74,7 +78,7 @@ jobs:
           target_commitish: ${{ env.GITHUB_SHA }}
           tag_name: v${{ env.PLUGIN_VERSION }}
           files: |
-            ./${{ env.PLUGIN_NAME }}.net6.0/*
+            ./${{ env.PLUGIN_NAME }}.net6.0.zip
           body: |
             Lidarr plugin to add Tidal support
 
