@@ -70,7 +70,7 @@ jobs:
       - name: Zip Artifact
         uses: montudor/action-zip@v1
         with:
-          args: zip -j ${{ env.PLUGIN_NAME }}.net6.0.zip *
+          args: zip -j ${{ env.PLUGIN_NAME }}.net6.0.zip ./*
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
