@@ -59,14 +59,14 @@ jobs:
 
   publish:
     needs: build
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact (net6.0)
         uses: actions/download-artifact@v4
         with:
+          name: ${{ env.PLUGIN_NAME }}.net6.0
           path: ${{ env.PLUGIN_NAME }}.net6.0
-          name: ${{ env.PLUGIN_NAME }}-${{ env.PLUGIN_VERSION }}
       - uses: meeDamian/github-release@2.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -80,5 +80,5 @@ jobs:
           draft: true
           prerelease: true
           files: >
-            ${{ env.PLUGIN_NAME }}-${{ env.PLUGIN_VERSION }}/
+            ${{ env.PLUGIN_NAME }}.net6.0/
           gzip: folders
