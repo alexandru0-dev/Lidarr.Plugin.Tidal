@@ -66,11 +66,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.PLUGIN_NAME }}.net6.0
-          path: ${{ env.PLUGIN_NAME }}.net6.0
+          path: .
       - name: Zip Artifact
         run: |
           ls -la *
-          zip ${{ env.PLUGIN_NAME }}.net6.0.zip ./*
+          zip ./${{ env.PLUGIN_NAME }}.net6.0.zip -j ./${{ env.PLUGIN_NAME }}.net6.0/*
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
