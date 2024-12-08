@@ -24,9 +24,23 @@
           system,
           ...
         }:
+        let
+          # Function to create script
+          mkScript =
+            name: text:
+            let
+              script = pkgs.writeShellScriptBin name text;
+            in
+            script;
+
+          # Define your scripts/aliases
+          scripts = [
+            (mkScript "build" ''dotnet build src/*.sln -f net6.0 -c Release && cp _plugins/net6.0/Lidarr.Plugin.Tidal/Lidarr.Plugin.Tidal.* ~/lidarr_custom/config/plugins/alexandru0-dev/Lidarr.Plugin.Tidal'')
+          ];
+        in
         {
           devShells.default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [ dotnet-sdk_8 ];
+            nativeBuildInputs = with pkgs; [ dotnet-sdk_8 ] ++ scripts;
           };
         };
     };
