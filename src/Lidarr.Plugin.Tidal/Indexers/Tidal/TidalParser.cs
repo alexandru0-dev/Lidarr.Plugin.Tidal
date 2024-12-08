@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 using Newtonsoft.Json.Linq;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Parser.Model;
@@ -15,37 +16,40 @@ namespace NzbDrone.Core.Indexers.Tidal
     {
         public TidalIndexerSettings Settings { get; set; }
 
+        public Logger Logger { get; set; }
+
         public IList<ReleaseInfo> ParseResponse(IndexerResponse response)
         {
             var torrentInfos = new List<ReleaseInfo>();
-            var content = new HttpResponse<TidalSearchResponse>(response.HttpResponse).Content;
+            Logger.Info($"REQUEST: {response.Request.Url.FullUri}");
+            var content = new HttpResponse<TidalAlbumsResponse>(response.HttpResponse).Content;
 
-            var jsonResponse = JObject.Parse(content).ToObject<TidalSearchResponse>();
-            var releases = jsonResponse.AlbumResults.Items.Select(result => ProcessAlbumResult(result)).ToArray();
+            var jsonResponse = JObject.Parse(content).ToObject<TidalAlbumsResponse>();
+            var releases = jsonResponse.Items.Select(result => ProcessAlbumResult(result)).ToArray();
 
             foreach (var task in releases)
             {
                 torrentInfos.AddRange(task);
             }
 
-            foreach (var track in jsonResponse.TrackResults.Items)
-            {
-                // make sure the album hasn't already been processed before doing this
-                if (!jsonResponse.AlbumResults.Items.Any(a => a.Id == track.Album.Id))
-                {
-                    var processTrackTask = ProcessTrackAlbumResultAsync(track);
-                    processTrackTask.Wait();
-                    if (processTrackTask.Result != null)
-                        torrentInfos.AddRange(processTrackTask.Result);
-                }
-            }
+            /*foreach (var track in jsonResponse.TrackResults.Items)*/
+            /*{*/
+            /*    // make sure the album hasn't already been processed before doing this*/
+            /*    if (!jsonResponse.AlbumResults.Items.Any(a => a.Id == track.Album.Id))*/
+            /*    {*/
+            /*        var processTrackTask = ProcessTrackAlbumResultAsync(track);*/
+            /*        processTrackTask.Wait();*/
+            /*        if (processTrackTask.Result != null)*/
+            /*            torrentInfos.AddRange(processTrackTask.Result);*/
+            /*    }*/
+            /*}*/
 
             return torrentInfos
                 .OrderByDescending(o => o.Size)
                 .ToArray();
         }
 
-        private IEnumerable<ReleaseInfo> ProcessAlbumResult(TidalSearchResponse.Album result)
+        private IEnumerable<ReleaseInfo> ProcessAlbumResult(TidalAlbumsResponse.Album result)
         {
             // determine available audio qualities
             List<AudioQuality> qualityList = new() { AudioQuality.LOW, AudioQuality.HIGH };
@@ -62,20 +66,20 @@ namespace NzbDrone.Core.Indexers.Tidal
             return qualityList.Select(q => ToReleaseInfo(result, q));
         }
 
-        private async Task<IEnumerable<ReleaseInfo>> ProcessTrackAlbumResultAsync(TidalSearchResponse.Track result)
-        {
-            try
-            {
-                var album = (await TidalAPI.Instance.Client.API.GetAlbum(result.Album.Id)).ToObject<TidalSearchResponse.Album>(); // track albums hold much less data so we get the full one
-                return ProcessAlbumResult(album);
-            }
-            catch (ResourceNotFoundException) // seems to occur in some cases, not sure why. i blame tidal
-            {
-                return null;
-            }
-        }
+        /*private async Task<IEnumerable<ReleaseInfo>> ProcessTrackAlbumResultAsync(TidalSearchResponse.Track result)*/
+        /*{*/
+        /*    try*/
+        /*    {*/
+        /*        var album = (await TidalAPI.Instance.Client.API.GetAlbum(result.Album.Id)).ToObject<TidalSearchResponse.Album>(); // track albums hold much less data so we get the full one*/
+        /*        return ProcessAlbumResult(album);*/
+        /*    }*/
+        /*    catch (ResourceNotFoundException) // seems to occur in some cases, not sure why. i blame tidal*/
+        /*    {*/
+        /*        return null;*/
+        /*    }*/
+        /*}*/
 
-        private static ReleaseInfo ToReleaseInfo(TidalSearchResponse.Album x, AudioQuality bitrate)
+        private static ReleaseInfo ToReleaseInfo(TidalAlbumsResponse.Album x, AudioQuality bitrate)
         {
             var publishDate = DateTime.UtcNow;
             var year = 0;

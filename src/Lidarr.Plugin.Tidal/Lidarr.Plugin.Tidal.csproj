@@ -1,35 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net6.0</TargetFrameworks>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<AdditionalFiles Remove="E:\Projects\GitHub\Lidarr.Plugin.Tidal\src\stylecop.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.34.2">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="TagLibSharp" Version="2.3.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.34.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\ext\Lidarr\src\NzbDrone.Core\Lidarr.Core.csproj" />
 		<ProjectReference Include="..\TidalSharp\TidalSharp.csproj" />
 	</ItemGroup>
-
-	<PropertyGroup>
-		<MinimumLidarrVersion>2.2.4.4129</MinimumLidarrVersion>
-		<SourceFile>$(SolutionDir)../ext/Lidarr/src/Directory.Build.props</SourceFile>
-		<BackupFile>$(SourceFile).bak</BackupFile>
-	</PropertyGroup>
-
-	<Target Condition="'$(Configuration)' == 'Debug'" Name="PostBuild" AfterTargets="ILRepacker">
-		<Exec ContinueOnError="true" Command="COPY &quot;$(TargetPath)&quot; &quot;C:\ProgramData\Lidarr\plugins\TrevTV\Lidarr.Plugin.Tidal&quot;" />
-	</Target>
 
 </Project>

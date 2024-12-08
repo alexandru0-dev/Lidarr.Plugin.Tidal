@@ -20,6 +20,7 @@ Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Lidarr.Console", "..\..\Lid
 		AttachLaunchAction = No
 		IORedirection = Auto
 	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TidalSharp", "..\ext\TidalSharp\TidalSharp\TidalSharp.csproj", "{CEA09058-C519-4895-B1F6-0C328E7B7300}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{E24761E9-55F2-4714-A913-959BD52428BC}"
 EndProject
@@ -57,6 +58,18 @@ Global
 		{04F6B3DE-C567-4323-B451-23F19F9D1E44}.Release|Any CPU.ActiveCfg = Release|x64
 		{04F6B3DE-C567-4323-B451-23F19F9D1E44}.Release|x64.ActiveCfg = Release|x64
 		{04F6B3DE-C567-4323-B451-23F19F9D1E44}.Release|x86.ActiveCfg = Release|x64
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|x64.Build.0 = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Debug|x86.Build.0 = Debug|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|x64.ActiveCfg = Release|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|x64.Build.0 = Release|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|x86.ActiveCfg = Release|Any CPU
+		{CEA09058-C519-4895-B1F6-0C328E7B7300}.Release|x86.Build.0 = Release|Any CPU
 		{CA543BEA-8AC6-4814-B6B8-0328678172B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA543BEA-8AC6-4814-B6B8-0328678172B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA543BEA-8AC6-4814-B6B8-0328678172B1}.Debug|x64.ActiveCfg = Debug|Any CPU
