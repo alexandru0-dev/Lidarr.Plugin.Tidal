@@ -16,12 +16,20 @@ namespace NzbDrone.Core.Indexers.Tidal
     {
         public TidalIndexerSettings Settings { get; set; }
 
-        public Logger Logger { get; set; }
+        public Logger _logger { get; set; }
 
         public IList<ReleaseInfo> ParseResponse(IndexerResponse response)
         {
+            _logger = LogManager.GetLogger("Tidal Parse");
             var torrentInfos = new List<ReleaseInfo>();
-            Logger.Info($"REQUEST: {response.Request.Url.FullUri}");
+            try
+            {
+                _logger.Info($"REQUEST: {response.HttpRequest.Url.ToString()}");
+            }
+            catch
+            {
+                _logger.Warn("rip");
+            }
             var content = new HttpResponse<TidalAlbumsResponse>(response.HttpResponse).Content;
 
             var jsonResponse = JObject.Parse(content).ToObject<TidalAlbumsResponse>();

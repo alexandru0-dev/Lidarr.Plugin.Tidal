@@ -23,7 +23,7 @@ namespace NzbDrone.Core.Indexers.Tidal
         {
             // this is a lazy implementation, just here so that lidarr has something to test against when saving settings
             var pageableRequests = new IndexerPageableRequestChain();
-            pageableRequests.AddTier(GetRequests("never gonna give you up"));
+            pageableRequests.AddTier(GetArtistRequests("3799139"));
 
             return pageableRequests;
         }
@@ -47,7 +47,7 @@ namespace NzbDrone.Core.Indexers.Tidal
             foreach (Links item in searchCriteria.Artist.Metadata.Value.Links.Where(x => x.Name == "tidal"))
             {
                 Logger.Info($"\t link: \"{item.Url}\"");
-                /*chain.Add(GetArtistRequests(TIDAL_REGEX.Replace(item.Url, "$4")));*/
+                chain.Add(GetArtistRequests(TIDAL_REGEX.Replace(item.Url, "$4")));
                 chain.Add(GetArtistTracksRequests(TIDAL_REGEX.Replace(item.Url, "$4")));
             }
             return chain;
