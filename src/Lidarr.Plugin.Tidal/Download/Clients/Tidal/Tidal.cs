@@ -10,6 +10,7 @@ using NzbDrone.Core.Indexers;
 using NzbDrone.Core.Parser.Model;
 using NzbDrone.Core.RemotePathMappings;
 using NzbDrone.Core.Validation;
+using NzbDrone.Core.Localization;
 using NzbDrone.Plugin.Tidal;
 
 namespace NzbDrone.Core.Download.Clients.Tidal
@@ -22,8 +23,9 @@ namespace NzbDrone.Core.Download.Clients.Tidal
                       IConfigService configService,
                       IDiskProvider diskProvider,
                       IRemotePathMappingService remotePathMappingService,
+                      ILocalizationService localizationService,
                       Logger logger)
-            : base(configService, diskProvider, remotePathMappingService, logger)
+            : base(configService, diskProvider, remotePathMappingService, localizationService, logger)
         {
             _proxy = proxy;
         }
