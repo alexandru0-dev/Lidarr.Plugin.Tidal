@@ -5,25 +5,21 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lidarr.Plugin.Tidal", "Lidarr.Plugin.Tidal\Lidarr.Plugin.Tidal.csproj", "{03AEA254-BEB0-4848-891E-3F8F9DDD3F56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26D0C62E-1003-46DB-A2E0-3DF7D75BCAA1}"
-EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Lidarr.Console", "..\..\Lidarr\_artifacts\win-x64\net6.0\Lidarr\Lidarr.Console.exe", "{04F6B3DE-C567-4323-B451-23F19F9D1E44}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = X:\Projects\GitHub\Lidarr\_artifacts\win-x64\net6.0\Lidarr\Lidarr.Console.exe
-		RemoteMachine = DESKTOP-V8L78GV
-		StartingDirectory = X:\Projects\GitHub\Lidarr\_artifacts\win-x64\net6.0\Lidarr
-		Environment = Default
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-		IORedirection = Auto
-	EndProjectSection
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TidalSharp", "..\ext\TidalSharp\TidalSharp\TidalSharp.csproj", "{CEA09058-C519-4895-B1F6-0C328E7B7300}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{E24761E9-55F2-4714-A913-959BD52428BC}"
-EndProject
+# Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{26D0C62E-1003-46DB-A2E0-3DF7D75BCAA1}"
+# EndProject
+# Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "Lidarr.Console", "..\..\Lidarr\_artifacts\win-x64\net6.0\Lidarr\Lidarr.Console.exe", "{04F6B3DE-C567-4323-B451-23F19F9D1E44}"
+# 	ProjectSection(DebuggerProjectSystem) = preProject
+# 		PortSupplier = 00000000-0000-0000-0000-000000000000
+# 		Executable = X:\Projects\GitHub\Lidarr\_artifacts\win-x64\net6.0\Lidarr\Lidarr.Console.exe
+# 		RemoteMachine = DESKTOP-V8L78GV
+# 		StartingDirectory = X:\Projects\GitHub\Lidarr\_artifacts\win-x64\net6.0\Lidarr
+# 		Environment = Default
+# 		LaunchingEngine = 00000000-0000-0000-0000-000000000000
+# 		UseLegacyDebugEngines = No
+# 		LaunchSQLEngine = No
+# 		AttachLaunchAction = No
+# 		IORedirection = Auto
+# 	EndProjectSection
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidarr.Core", "..\ext\Lidarr\src\NzbDrone.Core\Lidarr.Core.csproj", "{CA543BEA-8AC6-4814-B6B8-0328678172B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidarr.Common", "..\ext\Lidarr\src\NzbDrone.Common\Lidarr.Common.csproj", "{0B88E439-1107-450D-9547-034EDD5B3120}"
@@ -110,10 +106,10 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{CA543BEA-8AC6-4814-B6B8-0328678172B1} = {E24761E9-55F2-4714-A913-959BD52428BC}
-		{0B88E439-1107-450D-9547-034EDD5B3120} = {E24761E9-55F2-4714-A913-959BD52428BC}
-	EndGlobalSection
+	# GlobalSection(NestedProjects) = preSolution
+	# 	{CA543BEA-8AC6-4814-B6B8-0328678172B1} = {E24761E9-55F2-4714-A913-959BD52428BC}
+	# 	{0B88E439-1107-450D-9547-034EDD5B3120} = {E24761E9-55F2-4714-A913-959BD52428BC}
+	# EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FF22661A-52F8-41F4-B1D4-085AF586545F}
 	EndGlobalSection
