@@ -75,7 +75,7 @@ jobs:
           7z a -tzip ${{ env.PLUGIN_NAME }}.net6.0.zip ./_plugins/net6.0/${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.*
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v2
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/dev'
         with:
           tag_name: ${{ env.PLUGIN_VERSION }}
           name: ${{ env.PLUGIN_VERSION }}
