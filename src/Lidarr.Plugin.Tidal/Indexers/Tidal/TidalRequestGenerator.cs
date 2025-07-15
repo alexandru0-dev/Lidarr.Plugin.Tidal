@@ -32,7 +32,16 @@ namespace NzbDrone.Core.Indexers.Tidal
         {
             var chain = new IndexerPageableRequestChain();
 
-            chain.AddTier(GetRequests($"{searchCriteria.ArtistQuery} {searchCriteria.AlbumQuery}"));
+            Logger.Info($"criteria: {searchCriteria.Tracks}");
+            Logger.Info($"criteria: {searchCriteria.Albums}");
+            foreach (Links item in searchCriteria.Albums.SelectMany(p => p?.Links).Where(x => x?.Name == "tidal"))
+            {
+                Logger.Info($"\t link: \"{item.Url}\"");
+                chain.Add(GetArtistRequests(TIDAL_REGEX.Replace(item.Url, "$4")));
+                chain.Add(GetArtistTracksRequests(TIDAL_REGEX.Replace(item.Url, "$4")));
+            }
+
+            // chain.AddTier(GetRequests($"{searchCriteria.ArtistQuery} {searchCriteria.}"));
 
             return chain;
         }
@@ -86,7 +95,11 @@ namespace NzbDrone.Core.Indexers.Tidal
         {
             if (DateTime.UtcNow > TidalAPI.Instance.Client.ActiveUser.ExpirationDate)
             {
-                TidalAPI.Instance.Client.IsLoggedIn().Wait(); // calls an internal function which handles refreshes if needed
+                // ensure we always have an accurate expiration date
+                if (TidalAPI.Instance.Client.ActiveUser.ExpirationDate == DateTime.MinValue)
+                    TidalAPI.Instance.Client.ForceRefreshToken().Wait();
+                else
+                    TidalAPI.Instance.Client.IsLoggedIn().Wait(); // calls an internal function which handles refreshes if needed
             }
 
             for (var page = 0; page < MaxPages; page++)
@@ -109,7 +122,11 @@ namespace NzbDrone.Core.Indexers.Tidal
         {
             if (DateTime.UtcNow > TidalAPI.Instance.Client.ActiveUser.ExpirationDate)
             {
-                TidalAPI.Instance.Client.IsLoggedIn().Wait(); // calls an internal function which handles refreshes if needed
+                // ensure we always have an accurate expiration date
+                if (TidalAPI.Instance.Client.ActiveUser.ExpirationDate == DateTime.MinValue)
+                    TidalAPI.Instance.Client.ForceRefreshToken().Wait();
+                else
+                    TidalAPI.Instance.Client.IsLoggedIn().Wait(); // calls an internal function which handles refreshes if needed
             }
 
             for (var page = 0; page < MaxPages; page++)

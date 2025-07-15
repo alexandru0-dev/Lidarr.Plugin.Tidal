@@ -20,24 +20,29 @@ namespace NzbDrone.Core.Indexers.Tidal
 
         public IList<ReleaseInfo> ParseResponse(IndexerResponse response)
         {
-            _logger = LogManager.GetLogger("Tidal Parse");
+            _logger = LogManager.GetLogger("Tidal Parser:");
             var torrentInfos = new List<ReleaseInfo>();
             try
-            {
-                _logger.Info($"REQUEST: {response.HttpRequest.Url.ToString()}");
-            }
-            catch
-            {
-                _logger.Warn("rip");
-            }
-            var content = new HttpResponse<TidalAlbumsResponse>(response.HttpResponse).Content;
+                {
+                    _logger.Info($"REQUEST: {response.HttpRequest.Url.ToString()}");
+            _logger.Info("yoooo");
+               var content = new HttpResponse<TidalAlbumsResponse>(response.HttpResponse).Content;
 
-            var jsonResponse = JObject.Parse(content).ToObject<TidalAlbumsResponse>();
-            var releases = jsonResponse.Items.Select(result => ProcessAlbumResult(result)).ToArray();
+            _logger.Info("yoooo -- before parse");
+                var jsonResponse = JObject.Parse(content).ToObject<TidalAlbumsResponse>();
+            _logger.Info("yoooo -- before");
+                var releases = jsonResponse.Items.Select(result => ProcessAlbumResult(result)).ToArray();
 
-            foreach (var task in releases)
+            _logger.Info("yoooo -- before task");
+                foreach (var task in releases)
+                {
+                    torrentInfos.AddRange(task);
+                }
+            }
+            catch(Exception e)
             {
-                torrentInfos.AddRange(task);
+                _logger.Warn(e.Message);
+                return Array.Empty<ReleaseInfo>();
             }
 
             /*foreach (var track in jsonResponse.TrackResults.Items)*/
@@ -52,6 +57,7 @@ namespace NzbDrone.Core.Indexers.Tidal
             /*    }*/
             /*}*/
 
+            _logger.Info("final yoooo");
             return torrentInfos
                 .OrderByDescending(o => o.Size)
                 .ToArray();
