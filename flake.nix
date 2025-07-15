@@ -35,7 +35,7 @@
 
           # Define your scripts/aliases
           scripts = [
-            (mkScript "build" ''dotnet build src/*.sln -f net6.0 -c Release && cp _plugins/net6.0/Lidarr.Plugin.Tidal/Lidarr.Plugin.Tidal.* ~/lidarr_custom/config/plugins/alexandru0-dev/Lidarr.Plugin.Tidal'')
+            (mkScript "build" ''dotnet build src/*.sln -f net6.0 -c Release && cp _plugins/net6.0/Lidarr.Plugin.Tidal/Lidarr.Plugin.Tidal.* ~/lidarr/config/plugins/alexandru0-dev/Lidarr.Plugin.Tidal'')
           ];
         in
         {
