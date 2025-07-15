@@ -32,8 +32,10 @@ namespace NzbDrone.Core.Indexers.Tidal
         {
             var chain = new IndexerPageableRequestChain();
 
+            chain.AddTier();
+
             Logger.Info($"criteria: {searchCriteria.Tracks}");
-            Logger.Info($"criteria: {searchCriteria.Albums}");
+            Logger.Info($"criteria: {searchCriteria.Albums.SelectMany(p => p?.Links)}");
             foreach (Links item in searchCriteria.Albums.SelectMany(p => p?.Links).Where(x => x?.Name == "tidal"))
             {
                 Logger.Info($"\t link: \"{item.Url}\"");
